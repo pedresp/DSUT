@@ -4,12 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, intial-scale=1.0">
     <title>DRONE SET UP</title>
+    <style>
+        .my_paragraph {
+            display: inline-block;
+            width: 30%;
+            margin: 1%;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>DRONE SET UP</h1>
     <form action="/add_drone" method="post">
         <label for="drone_id">drone_id</label>
-        <input type="text" id="drone_id" name="drone_id" value="drone120">
+        <input type="text" id="drone_id" name="drone_id" value={{ next_drone }}>
 
         <label for="drone_speed">drone_id</label>
         <input type="text" id="drone_speed" name="drone_speed" value="20">
@@ -21,12 +29,12 @@
     </form>
     <br><br><br>
     {% for key, value in drones_bag.items() %}
-        <p><b>{{ key }}</b><br>
-            Drone_id: {{ value.id }}<br>
-            Drone_vel: {{ value.speed }}<br>
-            Drone_acc: {{ value.acc }}<br>
-            <br>
-        </p>
+    <div class="my_paragraph">
+        <p><b>{{ key }}</b></p>
+        <p>Drone_id: {{ value.id }}</p>
+        <p>Drone_vel: {{ value.speed }}</p>
+        <p>Drone_acc: {{ value.acc }}</p>
+    </div>
     {% endfor %}
 </body>
 </html>
