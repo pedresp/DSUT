@@ -1,0 +1,5 @@
+/{{ drone_id }}:
+  simulator:
+    ros__parameters:
+      max_speed: {{ drone_speed }}
+      max_acc: {{ drone_acc }}
