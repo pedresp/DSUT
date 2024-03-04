@@ -1,0 +1,66 @@
+import os
+import launch_ros
+from launch_ros.substitutions import FindPackageShare
+
+from launch import LaunchDescription
+from launch.actions import IncludeLaunchDescription
+from launch.launch_description_sources import PythonLaunchDescriptionSource
+from launch.substitutions import PathJoinSubstitution, TextSubstitution
+from ament_index_python.packages import get_package_share_directory
+
+
+def generate_launch_description():
+
+    config_file = 'mult_config.rviz'
+    config = os.path.join(
+        get_package_share_directory('simplesim'),
+        'rviz',
+        config_file
+    )
+    rviz_node = launch_ros.actions.Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        output='screen',
+        arguments=['-d' + config]
+    )
+
+    {% for key, value in drones_bag %}
+    {{ key }} = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('simplesim'),
+                'launch',
+                'start_drone.launch.py'
+            ])
+        ]),
+        launch_arguments={
+            'drone_id': '{{ key }}',
+            'drone_config': '{{ key }}.yaml',
+            'drone_wps': '{{ key }}.yaml'
+        }.items()
+    )
+    {% endfor %}
+
+    {{ last_drone }} = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            PathJoinSubstitution([
+                FindPackageShare('simplesim'),
+                'launch',
+                'start_drone.launch.py'
+            ])
+        ]),
+        launch_arguments={
+            'drone_id': '{{ last_drone }}',
+            'drone_config': '{{ last_drone }}.yaml',
+            'drone_wps': '{{ last_drone }}.yaml'
+        }.items()
+    )
+
+    return LaunchDescription([
+            rviz_node,
+            {% for key, value in drones_bag %}
+            {{ key }},
+            {% endfor %}
+            {{ last_drone }}
+        ])

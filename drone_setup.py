@@ -6,7 +6,7 @@ import os
 import pwd
 
 drones_bag = {}
-ros_ws = 'drone_proy/ros_tfg'
+ros_ws = 'ros_tfg'
 route = f"/home/{pwd.getpwuid(os.getuid()).pw_name}/{ros_ws}/src/simplesim"
 
 print(route)
@@ -54,6 +54,12 @@ def generate_config():
         print(f"{route}/config/{drone_key}.yaml")
         with open(f"{route}/config/{drone_key}.yaml", 'w', encoding='utf-8') as outf:
             outf.write(content)
+    
+    minus1_list = list(drones_bag.items())[1:]
+    element = list(drones_bag.items())[0][0]
+    launch_content = render_template('files/launcher_template.txt', drones_bag=minus1_list, last_drone=element)
+    with open(f"{route}/launch/my_launcher_drones.launch.py", 'w', encoding='utf-8') as launch_config:
+        launch_config.write(launch_content)
 
     return redirect(url_for("index"))
 
