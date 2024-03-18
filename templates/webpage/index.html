@@ -24,7 +24,19 @@
         
         <label for="drone_acc">drone_id</label>
         <input type="text" id="drone_acc" name="drone_acc" value="30">
+
+        <label for="drone_tof">drone_id</label>
+        <input type="text" id="drone_tof" name="drone_tof" value="50">
+
+        <label for="drone_sweep_width">drone_id</label>
+        <input type="text" id="drone_sweep_width" name="drone_sweep_width" value="30">
         
+        <label for="drone_coordx">drone_id</label>
+        <input type="text" id="drone_coordx" name="drone_coordx" value="-200">
+
+        <label for="drone_coordy">drone_id</label>
+        <input type="text" id="drone_coordy" name="drone_coordy" value="0">
+
         <button type="submit" name="add_drone">add_drone</button>
     </form>
     <br><br>
@@ -44,6 +56,18 @@
             <br>
             <label for="drone_acc">Drone_acceleration</label>
             <input type="text" id="drone_acc" name="drone_acc" value="{{ value.acc }}">
+            <br>
+            <label for="drone_tof">Drone_tof</label>
+            <input type="text" id="drone_tof" name="drone_tof" value="{{ value.tof }}">
+            <br>
+            <label for="drone_sweep_width">Drone_sweep_width</label>
+            <input type="text" id="drone_sweep_width" name="drone_sweep_width" value="{{ value.sweep_width }}">
+            <br>
+            <label for="drone_coordx">Drone_coordx</label>
+            <input type="text" id="drone_coordx" name="drone_coordx" value="{{ value.coordx }}">
+            <br>
+            <label for="drone_coordy">Drone_coordy</label>
+            <input type="text" id="drone_coordy" name="drone_coordy" value="{{ value.coordy }}">
             <br>
             <button type="submit" name="aod" value="modify_drone">modify_drone</button>
             <button type="submit" name="aod" value="duplicate_drone">duplicate_drone</button>

@@ -3,3 +3,7 @@
     ros__parameters:
       max_speed: {{ drone_speed }}
       max_acc: {{ drone_acc }}
+      tof: {{ drone_tof }}
+      sweep_width: {{ drone_sweep_width}}
+      coordx: {{ drone_coordx }}
+      coordy: {{ drone_coordy }}
