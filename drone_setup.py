@@ -13,10 +13,12 @@ print(route)
 
 app = Flask(__name__)
 
+'''Method to represent the actual state of the drones bag'''
 @app.route("/", methods=['GET'])
 def index():
     return render_template("webpage/index.html", drones_bag=drones_bag, next_drone=utils.next_drone(drones_bag))
 
+'''Method to add a brand new drone from the data introduced in the first form'''
 @app.route("/add_drone", methods=['POST'])
 def basic_add_drone():
     my_data = request.form.to_dict()
@@ -28,6 +30,7 @@ def basic_add_drone():
     drones_bag[drone_id] = c.Drone(drone_id, drone_speed, drone_acc)
     return redirect(url_for("index"))
 
+'''Method to modify/delete or add a copy of an existing drone'''
 @app.route("/action_on_drone", methods=['POST'])
 def modify_drone():
     my_data = request.form.to_dict()
@@ -47,6 +50,8 @@ def modify_drone():
 
     return redirect(url_for("index"))
 
+'''Method to generate the configuration and launcher files that are
+described in the web page'''
 @app.route("/generate_config", methods=['POST'])
 def generate_config():
     for drone_key, drone_value in drones_bag.items():

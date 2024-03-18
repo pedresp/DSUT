@@ -1,3 +1,4 @@
+'''Method that calculates the next standard name for a new drone'''
 def next_drone(dicctionary: dict) -> str:
     count = 0
     candidate_name = "drone_" + str(count)
@@ -8,6 +9,7 @@ def next_drone(dicctionary: dict) -> str:
 
     return candidate_name
 
+'''Method to check if a dictionary has a key'''
 def hasKey(dictionary: dict, key:str) -> bool:
     try:
         dictionary[key]
