@@ -58,7 +58,7 @@ def modify_drone():
         del drones_bag[drone_id]
     else:
         new_drone = utils.next_drone(drones_bag)
-        drones_bag[new_drone] = c.Drone(drone_id, drone_speed, drone_acc, drone_tof, drone_sweep_width, drone_coordx, drone_coordy)
+        drones_bag[new_drone] = c.Drone(new_drone, drone_speed, drone_acc, drone_tof, drone_sweep_width, drone_coordx, drone_coordy)
 
     return redirect(url_for("index"))
 
