@@ -62,8 +62,8 @@ def generate_launch_description():
         executable='server',
         name='server1',
         parameters=[
-            {'drones_quantity': 3.0},
-            {'flight_height': 8.0}
+            {'drones_quantity': {{ drones_number}} },
+            {'flight_height': {{ height }} }
         ]  
     )
 

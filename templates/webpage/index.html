@@ -39,6 +39,13 @@
 
         <button type="submit" name="add_drone">add_drone</button>
     </form>
+    <br>
+    <form action="/change_height" method="post">
+        <label for="fly_height">fly_height</label>
+        <input type="text" id="fly_height" name="fly_height" value="{{ fly_height }}">
+
+        <button type="submit" name="change_height">change_height</button>
+    </form>
     <br><br>
     <form action="/generate_config" method="post">
         <button type="submit" name="generate_config">generate_config</button>

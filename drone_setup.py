@@ -6,6 +6,7 @@ import os
 import pwd
 
 drones_bag = {}
+fly_height = 8.0
 ros_ws = 'ros_tfg'
 route = f"/home/{pwd.getpwuid(os.getuid()).pw_name}/{ros_ws}/src/simplesim"
 
@@ -16,7 +17,7 @@ app = Flask(__name__)
 '''Method to represent the actual state of the drones bag'''
 @app.route("/", methods=['GET'])
 def index():
-    return render_template("webpage/index.html", drones_bag=drones_bag, next_drone=utils.next_drone(drones_bag))
+    return render_template("webpage/index.html", drones_bag=drones_bag, next_drone=utils.next_drone(drones_bag), fly_height=fly_height)
 
 '''Method to add a brand new drone from the data introduced in the first form'''
 @app.route("/add_drone", methods=['POST'])
@@ -32,6 +33,16 @@ def basic_add_drone():
     drone_coordy = float(my_data["drone_coordy"])
 
     drones_bag[drone_id] = c.Drone(drone_id, drone_speed, drone_acc, drone_tof, drone_sweep_width, drone_coordx, drone_coordy)
+    return redirect(url_for("index"))
+
+'''Method to change height'''
+@app.route('/change_height', methods=['POST'])
+def change_height():
+    global fly_height
+    my_data = request.form.to_dict()
+
+    fly_height = float(my_data['fly_height'])
+
     return redirect(url_for("index"))
 
 '''Method to modify/delete or add a copy of an existing drone'''
@@ -76,7 +87,8 @@ def generate_config():
     
     minus1_list = list(drones_bag.items())[1:]
     element = list(drones_bag.items())[0][0]
-    launch_content = render_template('files/launcher_template.txt', drones_bag=minus1_list, last_drone=element)
+    launch_content = render_template('files/launcher_template.txt', drones_bag=minus1_list, last_drone=element, drones_number= float(len(drones_bag)), \
+                                     height=fly_height)
     with open(f"{route}/launch/my_launcher_drones.launch.py", 'w', encoding='utf-8') as launch_config:
         launch_config.write(launch_content)
 
