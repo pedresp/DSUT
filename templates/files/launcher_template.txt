@@ -56,11 +56,22 @@ def generate_launch_description():
             'drone_wps': '{{ last_drone }}.yaml'
         }.items()
     )
+    
+    server = launch_ros.actions.Node(
+    	package='planificador',
+        executable='server',
+        name='server1',
+        parameters=[
+            {'drones_quantity': 3.0},
+            {'flight_height': 8.0}
+        ]  
+    )
 
     return LaunchDescription([
             rviz_node,
             {% for key, value in drones_bag %}
             {{ key }},
             {% endfor %}
-            {{ last_drone }}
+            {{ last_drone }},
+            server
         ])

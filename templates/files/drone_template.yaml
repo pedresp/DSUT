@@ -1,6 +1,7 @@
 /{{ drone_id }}:
-  simulator:
+  controller:
     ros__parameters:
+      drone_id: {{ drone_id }}
       max_speed: {{ drone_speed }}
       max_acc: {{ drone_acc }}
       tof: {{ drone_tof }}

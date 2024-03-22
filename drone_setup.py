@@ -70,8 +70,8 @@ def generate_config():
         content = render_template('files/drone_template.yaml', drone_id=drone_key, drone_speed=drone_value.speed, drone_acc=drone_value.acc, \
                                   drone_tof=drone_value.tof, drone_sweep_width=drone_value.sweep_width, drone_coordx=drone_value.coordx, \
                                   drone_coordy= drone_value.coordy)
-        print(f"{route}/config/{drone_key}.yaml")
-        with open(f"{route}/config/{drone_key}.yaml", 'w', encoding='utf-8') as outf:
+        print(f"{route}/waypoints/{drone_key}.yaml")
+        with open(f"{route}/waypoints/{drone_key}.yaml", 'w', encoding='utf-8') as outf:
             outf.write(content)
     
     minus1_list = list(drones_bag.items())[1:]
