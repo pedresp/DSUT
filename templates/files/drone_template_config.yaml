@@ -1,0 +1,10 @@
+/{{ drone_id }}:
+  simulator:
+    ros__parameters:
+      drone_id: {{ drone_id }}
+      max_speed: {{ drone_speed }}
+      max_acc: {{ drone_acc }}
+      tof: {{ drone_tof }}
+      sweep_width: {{ drone_sweep_width}}
+      coordx: {{ drone_coordx }}
+      coordy: {{ drone_coordy }}

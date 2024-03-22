@@ -7,7 +7,7 @@ import pwd
 
 drones_bag = {}
 fly_height = 8.0
-ros_ws = 'ros_tfg'
+ros_ws = 'drone_proy/ros_tfg'
 route = f"/home/{pwd.getpwuid(os.getuid()).pw_name}/{ros_ws}/src/simplesim"
 
 print(route)
@@ -84,6 +84,11 @@ def generate_config():
         print(f"{route}/waypoints/{drone_key}.yaml")
         with open(f"{route}/waypoints/{drone_key}.yaml", 'w', encoding='utf-8') as outf:
             outf.write(content)
+        conf_content = render_template('files/drone_template_config.yaml', drone_id=drone_key, drone_speed=drone_value.speed, drone_acc=drone_value.acc, \
+                                  drone_tof=drone_value.tof, drone_sweep_width=drone_value.sweep_width, drone_coordx=drone_value.coordx, \
+                                  drone_coordy= drone_value.coordy)
+        with open(f"{route}/config/{drone_key}.yaml", "w", encoding='utf-8') as coutf:
+            coutf.write(conf_content)
     
     minus1_list = list(drones_bag.items())[1:]
     element = list(drones_bag.items())[0][0]
