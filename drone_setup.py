@@ -97,6 +97,10 @@ def generate_config():
     with open(f"{route}/launch/my_launcher_drones.launch.py", 'w', encoding='utf-8') as launch_config:
         launch_config.write(launch_content)
 
+    rviz_content = render_template('files/rviz.yaml', drones_bag= list(drones_bag.items()))
+    with open(f"{route}/rviz/mult_config.rviz", "w") as mrviz:
+        mrviz.write(rviz_content)
+
     return redirect(url_for("index"))
 
 if __name__ == '__main__':
