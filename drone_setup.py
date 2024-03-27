@@ -104,4 +104,12 @@ def generate_config():
     return redirect(url_for("index"))
 
 if __name__ == '__main__':
+    if not os.path.exists(f'{route}/launch'):
+        os.makedirs(f'{route}/launch')
+    if not os.path.exists(f'{route}/config'):
+        os.makedirs(f'{route}/config')
+    if not os.path.exists(f'{route}/rviz'):
+        os.makedirs(f'{route}/rviz')
+    if not os.path.exists(f'{route}/waypoints'):
+        os.makedirs(f'{route}/waypoints')
     app.run(debug=True)
