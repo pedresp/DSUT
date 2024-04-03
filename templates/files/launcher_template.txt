@@ -58,9 +58,9 @@ def generate_launch_description():
     )
     
     server = launch_ros.actions.Node(
-    	package='planificador',
-        executable='server',
-        name='server1',
+    	package='planner',
+        executable='station',
+        name='station1',
         parameters=[
             {'drones_quantity': {{ drones_number}} },
             {'flight_height': {{ height }} }

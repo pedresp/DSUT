@@ -7,7 +7,7 @@ import pwd
 
 drones_bag = {}
 fly_height = 8.0
-ros_ws = 'drone_proy/ros_tfg'
+ros_ws = 'ros_tfg'
 route = f"/home/{pwd.getpwuid(os.getuid()).pw_name}/{ros_ws}/src/simplesim"
 
 print(route)
