@@ -1,0 +1,6 @@
+areas:
+  - area:
+      coords: {% for x,y in point_list %}
+        - x: {{x}}
+          y: {{y}}
+        {% endfor %}

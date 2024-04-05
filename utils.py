@@ -16,3 +16,18 @@ def hasKey(dictionary: dict, key:str) -> bool:
         return True
     except:
         return False
+    
+def read_coords(coord: str):
+    coord_list = coord.split(sep="\n")
+    if not len(coord_list):
+        return None
+
+    solut_list = []
+
+    for elem in coord_list:
+        pair = elem.split(sep=",")
+        if not len(pair) == 2:
+            return None
+        solut_list.append((float(pair[0]), float(pair[1])))
+    
+    return solut_list

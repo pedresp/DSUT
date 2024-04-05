@@ -6,6 +6,8 @@ import os
 import pwd
 
 drones_bag = {}
+perimeter_points = []
+perimeter_str = ''
 fly_height = 8.0
 ros_ws = 'drone_proy/ros_tfg'
 route = f"/home/{pwd.getpwuid(os.getuid()).pw_name}/{ros_ws}/src"
@@ -17,7 +19,7 @@ app = Flask(__name__)
 '''Method to represent the actual state of the drones bag'''
 @app.route("/", methods=['GET'])
 def index():
-    return render_template("webpage/index.html", drones_bag=drones_bag, next_drone=utils.next_drone(drones_bag), fly_height=fly_height)
+    return render_template("webpage/index.html", drones_bag=drones_bag, next_drone=utils.next_drone(drones_bag), fly_height=fly_height, perimeter=perimeter_str)
 
 '''Method to add a brand new drone from the data introduced in the first form'''
 @app.route("/add_drone", methods=['POST'])
@@ -73,6 +75,20 @@ def modify_drone():
 
     return redirect(url_for("index"))
 
+@app.route("/perimeter", methods=['POST'])
+def perimeter():
+    global perimeter_str, perimeter_points
+
+    my_data = request.form.to_dict()['textbox']
+    print("my data:", my_data)
+    return_list = utils.read_coords(my_data)
+
+    perimeter_str = my_data if not return_list == None else 'an error ocurred!'
+    perimeter_points = return_list 
+
+    return redirect(url_for("index"))
+
+
 '''Method to generate the configuration and launcher files that are
 described in the web page'''
 @app.route("/generate_config", methods=['POST'])
@@ -100,6 +116,10 @@ def generate_config():
     rviz_content = render_template('files/rviz.yaml', drones_bag= list(drones_bag.items()))
     with open(f"{route}/simplesim/rviz/mult_config.rviz", "w") as mrviz:
         mrviz.write(rviz_content)
+
+    perimeter_content = render_template('files/perimeter.yaml', point_list=perimeter_points)
+    with open(f"{route}/planner/config/perimeter.yaml", "w") as perimc:
+        perimc.write(perimeter_content)
 
     return redirect(url_for("index"))
 

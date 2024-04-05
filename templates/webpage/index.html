@@ -51,6 +51,12 @@
         <button type="submit" name="generate_config">generate_config</button>
     </form>
     <br><br>
+    <form action="/perimeter" method="post">
+        <textarea id="textbox" name="textbox" rows="5", cols="30">{{ perimeter }}</textarea>
+        <br><br>
+        <button type="submit" name="text_button">add perimeter</button>
+    </form>
+    <br><br>
     {% for key, value in drones_bag.items() %}
     <div class="my_paragraph">
         <form action="/action_on_drone" method="post">
