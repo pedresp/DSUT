@@ -7,8 +7,8 @@ import pwd
 
 drones_bag = {}
 fly_height = 8.0
-ros_ws = 'ros_tfg'
-route = f"/home/{pwd.getpwuid(os.getuid()).pw_name}/{ros_ws}/src/simplesim"
+ros_ws = 'drone_proy/ros_tfg'
+route = f"/home/{pwd.getpwuid(os.getuid()).pw_name}/{ros_ws}/src"
 
 print(route)
 
@@ -81,35 +81,37 @@ def generate_config():
         content = render_template('files/drone_template.yaml', drone_id=drone_key, drone_speed=drone_value.speed, drone_acc=drone_value.acc, \
                                   drone_tof=drone_value.tof, drone_sweep_width=drone_value.sweep_width, drone_coordx=drone_value.coordx, \
                                   drone_coordy= drone_value.coordy)
-        print(f"{route}/waypoints/{drone_key}.yaml")
-        with open(f"{route}/waypoints/{drone_key}.yaml", 'w', encoding='utf-8') as outf:
+        print(f"{route}/simplesim/waypoints/{drone_key}.yaml")
+        with open(f"{route}/simplesim/waypoints/{drone_key}.yaml", 'w', encoding='utf-8') as outf:
             outf.write(content)
         conf_content = render_template('files/drone_template_config.yaml', drone_id=drone_key, drone_speed=drone_value.speed, drone_acc=drone_value.acc, \
                                   drone_tof=drone_value.tof, drone_sweep_width=drone_value.sweep_width, drone_coordx=drone_value.coordx, \
                                   drone_coordy= drone_value.coordy)
-        with open(f"{route}/config/{drone_key}.yaml", "w", encoding='utf-8') as coutf:
+        with open(f"{route}/simplesim/config/{drone_key}.yaml", "w", encoding='utf-8') as coutf:
             coutf.write(conf_content)
     
     minus1_list = list(drones_bag.items())[1:]
     element = list(drones_bag.items())[0][0]
     launch_content = render_template('files/launcher_template.txt', drones_bag=minus1_list, last_drone=element, drones_number= float(len(drones_bag)), \
                                      height=fly_height)
-    with open(f"{route}/launch/my_launcher_drones.launch.py", 'w', encoding='utf-8') as launch_config:
+    with open(f"{route}/simplesim/launch/my_launcher_drones.launch.py", 'w', encoding='utf-8') as launch_config:
         launch_config.write(launch_content)
 
     rviz_content = render_template('files/rviz.yaml', drones_bag= list(drones_bag.items()))
-    with open(f"{route}/rviz/mult_config.rviz", "w") as mrviz:
+    with open(f"{route}/simplesim/rviz/mult_config.rviz", "w") as mrviz:
         mrviz.write(rviz_content)
 
     return redirect(url_for("index"))
 
 if __name__ == '__main__':
-    if not os.path.exists(f'{route}/launch'):
-        os.makedirs(f'{route}/launch')
-    if not os.path.exists(f'{route}/config'):
-        os.makedirs(f'{route}/config')
-    if not os.path.exists(f'{route}/rviz'):
-        os.makedirs(f'{route}/rviz')
-    if not os.path.exists(f'{route}/waypoints'):
-        os.makedirs(f'{route}/waypoints')
+    if not os.path.exists(f'{route}/simplesim/launch'):
+        os.makedirs(f'{route}/simplesim/launch')
+    if not os.path.exists(f'{route}/simplesim/config'):
+        os.makedirs(f'{route}/simplesim/config')
+    if not os.path.exists(f'{route}/simplesim/rviz'):
+        os.makedirs(f'{route}/simplesim/rviz')
+    if not os.path.exists(f'{route}/simplesim/waypoints'):
+        os.makedirs(f'{route}/simplesim/waypoints')
+    if not os.path.exists(f'{route}/planner/config'):
+        os.makedirs(f'{route}/planner/config')
     app.run(debug=True)
