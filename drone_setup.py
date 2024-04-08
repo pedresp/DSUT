@@ -4,6 +4,7 @@ import utils
 
 import os
 import pwd
+import json
 
 drones_bag = {}
 perimeter_points = []
@@ -11,6 +12,7 @@ perimeter_str = ''
 fly_height = 8.0
 ros_ws = 'drone_proy/ros_tfg'
 route = f"/home/{pwd.getpwuid(os.getuid()).pw_name}/{ros_ws}/src"
+downloads = f"/home/{pwd.getpwuid(os.getuid()).pw_name}/Downloads"
 
 print(route)
 
@@ -19,7 +21,8 @@ app = Flask(__name__)
 '''Method to represent the actual state of the drones bag'''
 @app.route("/", methods=['GET'])
 def index():
-    return render_template("webpage/index.html", drones_bag=drones_bag, next_drone=utils.next_drone(drones_bag), fly_height=fly_height, perimeter=perimeter_str)
+    print(perimeter_str)
+    return render_template("webpage/index.html", drones_bag=drones_bag, next_drone=utils.next_drone(drones_bag), fly_height=fly_height, perimeter=perimeter_str, downloads=downloads)
 
 '''Method to add a brand new drone from the data introduced in the first form'''
 @app.route("/add_drone", methods=['POST'])
@@ -88,6 +91,25 @@ def perimeter():
 
     return redirect(url_for("index"))
 
+
+@app.route("/export_json", methods=['GET'])
+def export_json():
+    global perimeter_points, perimeter_str
+
+    _route = request.args.get('e_json')
+
+    dictionary = {}
+    dictionary["perimeter_points"] = perimeter_points
+    dictionary["perimeter_str"] = perimeter_str
+    dictionary["height"] = fly_height
+    dictionary["drones_bag"] = drones_bag
+
+    json_dict = json.dumps(dictionary, default=c.dronson, indent=4)
+
+    with open(f"{_route}/exported.json", "w") as file:
+        file.write(json_dict)
+
+    return redirect(url_for("index"))
 
 '''Method to generate the configuration and launcher files that are
 described in the web page'''

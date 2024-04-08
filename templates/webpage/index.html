@@ -56,7 +56,14 @@
         <br><br>
         <button type="submit" name="text_button">add perimeter</button>
     </form>
-    <br><br>
+    <br>
+    <form action="export_json" method="get">
+        <label for="e_json">route of exported json</label>
+        <input type="text" id="e_json" name="e_json", value="{{ downloads }}">
+
+        <button type="submit" name="export_json">export_json</button>
+    </form>
+    <br>
     {% for key, value in drones_bag.items() %}
     <div class="my_paragraph">
         <form action="/action_on_drone" method="post">
