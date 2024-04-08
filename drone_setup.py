@@ -111,6 +111,23 @@ def export_json():
 
     return redirect(url_for("index"))
 
+@app.route("/import_json", methods=['POST'])
+def import_json():
+    global perimeter_points, perimeter_str, fly_height, drones_bag
+
+    imp_json = request.form.to_dict()['i_json']
+
+    with open(imp_json, "r") as file:
+        file_content = file.read()
+        config_dict = json.loads(file_content)
+        c.jsondrone(config_dict['drones_bag'])
+        perimeter_points = config_dict['perimeter_points']
+        perimeter_str = config_dict['perimeter_str']
+        fly_height = config_dict['height']
+        drones_bag = config_dict['drones_bag']        
+
+    return redirect(url_for("index"))
+
 '''Method to generate the configuration and launcher files that are
 described in the web page'''
 @app.route("/generate_config", methods=['POST'])
