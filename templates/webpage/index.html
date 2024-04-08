@@ -11,6 +11,9 @@
             margin: 1%;
             padding: 10px;
         }
+        .json_input {
+            width: 18%;
+        }
     </style>
 </head>
 <body>
@@ -59,14 +62,14 @@
     <br>
     <form action="/export_json" method="get">
         <label for="e_json">route of exported json</label>
-        <input type="text" id="e_json" name="e_json", value="{{ downloads }}">
+        <input type="text" class="json_input" id="e_json" name="e_json", value="{{ downloads }}">
 
         <button type="submit" name="export_json">export_json</button>
     </form>
     <br>
     <form action="/import_json" method="post">
         <label for="i_json">route of imported json</label>
-        <input type="text" id="i_json" name="i_json", value="{{ downloads }}/imported.json">
+        <input type="text" class="json_input" id="i_json" name="i_json", value="{{ downloads }}/imported.json">
 
         <button type="submit" name="import_json">import_json</button>
     </form>
