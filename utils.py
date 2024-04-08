@@ -28,6 +28,6 @@ def read_coords(coord: str):
         pair = elem.split(sep=",")
         if not len(pair) == 2:
             return None
-        solut_list.append((float(pair[0]), float(pair[1])))
+        solut_list.append([float(pair[0]), float(pair[1])])
     
     return solut_list
