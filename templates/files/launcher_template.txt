@@ -67,11 +67,21 @@ def generate_launch_description():
         ]  
     )
 
+    planner_monitor = launch_ros.actions.Node(
+        package='planner',
+        executable='simulation_results',
+        name='planner_monitor',
+        parameters=[
+            {'drones_quantity': {{ drones_number}} },
+        ]  
+    )
+
     return LaunchDescription([
             rviz_node,
             {% for key, value in drones_bag %}
             {{ key }},
             {% endfor %}
             {{ last_drone }},
-            server
+            server,
+            planner_monitor
         ])
