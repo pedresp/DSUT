@@ -45,8 +45,11 @@ Visualization Manager:
       Topic: path_0
       Value: True
     {% endfor %}
+
   Global Options:
+    Background Color: 255; 255; 255
     Fixed Frame: base_link
+  
   Tools:
     - Class: rviz_default_plugins/MoveCamera
   Value: true
