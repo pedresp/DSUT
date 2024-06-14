@@ -173,4 +173,6 @@ if __name__ == '__main__':
         os.makedirs(f'{route}/simplesim/waypoints')
     if not os.path.exists(f'{route}/planner/config'):
         os.makedirs(f'{route}/planner/config')
+    if not os.path.exists(f'/home/{pwd.getpwuid(os.getuid()).pw_name}/sim_stats'):
+        os.makedirs(f'/home/{pwd.getpwuid(os.getuid()).pw_name}/sim_stats')    
     app.run(debug=True)
