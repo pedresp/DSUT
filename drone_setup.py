@@ -12,6 +12,7 @@ perimeter_str = ''
 fly_height = 8.0
 ros_ws = 'ros_tfg'
 route = f"/home/{pwd.getpwuid(os.getuid()).pw_name}/{ros_ws}/src"
+sim_stats = f'/home/{pwd.getpwuid(os.getuid()).pw_name}/sim_stats'
 downloads = f"/home/{pwd.getpwuid(os.getuid()).pw_name}/Downloads"
 
 print(route)
@@ -160,19 +161,37 @@ def generate_config():
     with open(f"{route}/planner/config/perimeter.yaml", "w") as perimc:
         perimc.write(perimeter_content)
 
+    if not 'area.yaml' in os.listdir(sim_stats):
+        os.symlink(f"{route}/planner/config/perimeter.yaml", f'{sim_stats}/area.yaml')
+    
+    rviz_scenarios = render_template('files/rviz_scenariovis.yaml', drones_bag= list(drones_bag.items()))
+    with open(f"{route}/scenariovis/rviz/rosviz-conf.rviz", "w") as scevis:
+        scevis.write(rviz_scenarios)
+
     return redirect(url_for("index"))
 
 if __name__ == '__main__':
     if not os.path.exists(f'{route}/simplesim/launch'):
+        print(f"Creating {route}/simplesim/launch directory")
         os.makedirs(f'{route}/simplesim/launch')
+
     if not os.path.exists(f'{route}/simplesim/config'):
+        print(f"Creating {route}/simplesim/config directory")
         os.makedirs(f'{route}/simplesim/config')
+
     if not os.path.exists(f'{route}/simplesim/rviz'):
+        print(f"Creating {route}/simplesim/rviz directory")
         os.makedirs(f'{route}/simplesim/rviz')
+
     if not os.path.exists(f'{route}/simplesim/waypoints'):
+        print(f"Creating {route}/simplesim/waypoints directory")
         os.makedirs(f'{route}/simplesim/waypoints')
+
     if not os.path.exists(f'{route}/planner/config'):
+        print(f"Creating {route}/planner/config directory")
         os.makedirs(f'{route}/planner/config')
-    if not os.path.exists(f'/home/{pwd.getpwuid(os.getuid()).pw_name}/sim_stats'):
-        os.makedirs(f'/home/{pwd.getpwuid(os.getuid()).pw_name}/sim_stats')    
+
+    if not os.path.exists(sim_stats):
+        print(f"Creating {sim_stats} directory")
+        os.makedirs(sim_stats)    
     app.run(debug=True)
