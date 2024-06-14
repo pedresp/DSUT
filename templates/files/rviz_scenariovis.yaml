@@ -61,7 +61,7 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: /area_info
       Value: true
-    {% for key, value in drone_bag %}
+    {% for key, value in drones_bag %}
     - Class: rviz_default_plugins/Marker
       Enabled: true
       Name: Marker
@@ -76,7 +76,7 @@ Visualization Manager:
         Value: /{{ key }}/plannedpath
       Value: true
     {% endfor %}
-    {% for key, value in drone_bag %}
+    {% for key, value in drones_bag %}
     - Class: rviz_default_plugins/Marker
       Enabled: true
       Name: Marker
@@ -91,7 +91,7 @@ Visualization Manager:
         Value: /{{ key }}/realpath
       Value: true
     {% endfor %}
- Enabled: true
+  Enabled: true
   Global Options:
     Background Color: 222; 221; 218
     Fixed Frame: map
