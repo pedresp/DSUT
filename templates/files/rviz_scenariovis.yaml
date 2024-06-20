@@ -54,7 +54,7 @@ Visualization Manager:
       Namespaces:
         areavis: true
       Topic:
-        Depth: 5
+        Depth: 10
         Durability Policy: Volatile
         Filter size: 10
         History Policy: Keep Last
@@ -68,7 +68,7 @@ Visualization Manager:
         axis: true
         texto: true
       Topic:
-        Depth: 5
+        Depth: 10
         Durability Policy: Volatile
         Filter size: 10
         History Policy: Keep Last
@@ -81,7 +81,7 @@ Visualization Manager:
       Namespaces:
         walls: true
       Topic:
-        Depth: 5
+        Depth: 10
         Durability Policy: Volatile
         Filter size: 10
         History Policy: Keep Last
@@ -95,7 +95,7 @@ Visualization Manager:
       Namespaces:
         {{ key }}@plannedpath: true
       Topic:
-        Depth: 5
+        Depth: 10
         Durability Policy: Volatile
         Filter size: 10
         History Policy: Keep Last
@@ -110,7 +110,7 @@ Visualization Manager:
       Namespaces:
         {{ key }}@realpath: true
       Topic:
-        Depth: 50
+        Depth: 500
         Durability Policy: Volatile
         Filter size: 300
         History Policy: Keep Last
@@ -137,14 +137,14 @@ Visualization Manager:
       Covariance y: 0.25
       Covariance yaw: 0.06853891909122467
       Topic:
-        Depth: 5
+        Depth: 10
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /initialpose
     - Class: rviz_default_plugins/SetGoal
       Topic:
-        Depth: 5
+        Depth: 10
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
@@ -152,7 +152,7 @@ Visualization Manager:
     - Class: rviz_default_plugins/PublishPoint
       Single click: true
       Topic:
-        Depth: 5
+        Depth: 10
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
