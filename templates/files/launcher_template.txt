@@ -76,10 +76,9 @@ def generate_launch_description():
         ]  
     )
 
-    tm = launch_ros.actions.Node(
+    lm = launch_ros.actions.Node(
         package='planner',
-        executable='trayectories_manager',
-        name='trayectories_manager'
+        executable='listeners'
     )
     return LaunchDescription([
             rviz_node,
@@ -89,5 +88,5 @@ def generate_launch_description():
             {{ last_drone }},
             server,
             planner_monitor,
-	        tm
+	    lm
         ])
