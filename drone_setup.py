@@ -2,9 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for
 import classes as c
 import utils
 
-import os
-import pwd
-import json
+import os, pwd, json, subprocess
+from datetime import datetime
 
 drones_bag = {}
 perimeter_points = []
@@ -168,6 +167,14 @@ def generate_config():
     with open(f"{route}/scenariovis/rviz/rosviz-conf.rviz", "w") as scevis:
         scevis.write(rviz_scenarios)
 
+    persist = "NOACTION" if len(os.listdir(f'{sim_stats}')) == 0 else str(datetime.now()) 
+    persist = persist.replace(" ", "")
+    subprocess.run(['bash', 'script.sh', "IMDSUT", persist])
+    print(persist)
+    
+    if not 'area.yaml' in os.listdir(sim_stats):
+        os.symlink(f"{route}/planner/config/perimeter.yaml", f'{sim_stats}/area.yaml')
+
     return redirect(url_for("index"))
 
 if __name__ == '__main__':
@@ -194,4 +201,5 @@ if __name__ == '__main__':
     if not os.path.exists(sim_stats):
         print(f"Creating {sim_stats} directory")
         os.makedirs(sim_stats)    
+
     app.run(debug=True)
