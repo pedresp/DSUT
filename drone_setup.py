@@ -160,9 +160,7 @@ def generate_config():
     with open(f"{route}/planner/config/perimeter.yaml", "w") as perimc:
         perimc.write(perimeter_content)
 
-    if not 'area.yaml' in os.listdir(sim_stats):
-        os.symlink(f"{route}/planner/config/perimeter.yaml", f'{sim_stats}/area.yaml')
-    
+   
     rviz_scenarios = render_template('files/rviz_scenariovis.yaml', drones_bag= list(drones_bag.items()))
     with open(f"{route}/scenariovis/rviz/rosviz-conf.rviz", "w") as scevis:
         scevis.write(rviz_scenarios)
