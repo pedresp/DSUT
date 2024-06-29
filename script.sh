@@ -33,7 +33,8 @@ if [ $2 != "NOACTION" ]
 then
     mv "$HOME/$STATS_FOLDER" "$STATS_BACKUP/$2" >& /dev/null
     cp "$HOME/$ROS2_WRK/src/scenariovis/rviz/rosviz-conf.rviz" "$STATS_BACKUP/$2/" >& /dev/null
-    rm "$STATS_BACKUP/$2/area.yaml" >& /dev/null
+    mkdir "$HOME/$STATS_FOLDER" >& /dev/null
+    mv "$STATS_BACKUP/$2/area.yaml" "$HOME/$STATS_FOLDER" >& /dev/null
     cp "$HOME/$ROS2_WRK/src/planner/config/perimeter.yaml" "$STATS_BACKUP/$2/area.yaml" >& /dev/null || echo "fallo perimeter"
 fi
 
@@ -44,6 +45,7 @@ then
 else
     newdir=$1
     [ "${1: -1}" == '/' ] || newdir="$1/"
+    rm "$HOME/$STATS_FOLDER/"*
     cp "$newdir"* "$HOME/$STATS_FOLDER/"
     mv "$HOME/$STATS_FOLDER/rosviz-conf.rviz" "$HOME/$ROS2_WRK/src/scenariovis/rviz/"
 fi
