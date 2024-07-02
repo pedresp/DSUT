@@ -200,4 +200,8 @@ if __name__ == '__main__':
         print(f"Creating {sim_stats} directory")
         os.makedirs(sim_stats)    
 
+    if not os.path.exists(f'{route}/scenariovis/rviz'):
+        print(f"Creating {route}/scenariovis/rviz directory")
+        os.makedirs(f'{route}/scenariovis/rviz') 
+
     app.run(debug=True)
